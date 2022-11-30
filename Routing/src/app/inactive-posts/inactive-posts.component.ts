@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from '../post';
-import { getPostFiltered } from '../post-service.service';
+import { attivaPost, PostServiceService } from '../post-service.service';
 
 @Component({
   selector: 'app-inactive-posts',
@@ -11,14 +11,19 @@ export class InactivePostsComponent implements OnInit {
 
   posts:Post[]=[]
 
-  constructor() { }
+  constructor(private postSrv:PostServiceService) { }
 
   ngOnInit(): void {
-    this.posts=[]
-    let t = getPostFiltered(false)
-    t.then((res)=>{
-      this.posts=res
-    })
+    this.posts = this.postSrv.getPostFiltered(false)
   }
 
+
+  attiva(id:number) {
+    attivaPost(id)
+    this.posts = this.posts.filter((e)=>{
+      return !(e.id == id)
+      // if(e.id == id) { return false }
+      // return true
+    })
+  }
 }

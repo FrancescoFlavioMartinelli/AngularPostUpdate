@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from '../post';
-import { getPostFiltered, getPosts } from '../post-service.service';
+import { getPostFiltered, disattivaPost, PostServiceService } from '../post-service.service';
 
 @Component({
   selector: 'app-active-posts',
@@ -9,17 +9,22 @@ import { getPostFiltered, getPosts } from '../post-service.service';
 })
 export class ActivePostsComponent implements OnInit {
 
-
   posts:Post[] = []
-
 
   constructor() { }
 
   ngOnInit(): void {
-    this.posts=[]
-    let t = getPostFiltered(true)
-    t.then((res)=>{
-      this.posts=res
+    this.posts = getPostFiltered(true);
+  }
+
+  disattiva(id:number) {
+    console.log(id);
+    
+    disattivaPost(id)
+    this.posts = this.posts.filter((e)=>{
+      return !(e.id == id)
+      // if(e.id == id) { return false }
+      // return true
     })
   }
 

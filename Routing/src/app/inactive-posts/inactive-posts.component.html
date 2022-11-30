@@ -1,8 +1,3 @@
-<!-- Creo una card che rappresenta un post e con *ngFor la clono per ogni elemento di un array -->
-<div class="card bg-danger" *ngFor="let p of posts">
-  <h5 class="card-header">{{p.id}}</h5>
-  <div class="card-body">
-    <h5 class="card-title">{{p.title}}</h5>
-    <p class="card-text">{{p.body}}</p>
-  </div>
-</div>
+<app-post-card *ngFor="let post of posts" [p]="post">
+    <button class="btn btn-success" (click)="attiva(post.id)">Disattiva</button>
+</app-post-card>
